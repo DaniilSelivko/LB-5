@@ -1,0 +1,132 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+void task_geom23();
+void task_2();
+int factorial(int n);
+double pos(int n);
+
+void task_3();
+int main()
+{
+    int menu;
+    cout << "Task number:";
+    cin >> menu;
+    switch (menu)
+    { // перемикання між завданнями
+    case 1:
+        task_geom23();
+        break; // Завдання 1
+    case 2:
+        task_2();
+        break; // Завдання 2
+
+    case 3:
+        task_3();
+        break; // Завдання 3
+
+    default: cout << "Wrong task! (Only 1,2 or 3)" << endl; //повідомлення про помилку
+    }
+
+
+    system("pause");
+    return 0;
+}
+void task_geom23()
+{
+    // Вводим координаты точки
+    double x, y;
+    int n = 0,it=0, a=0,r=0;
+    cout << "Enter number of points" << endl;
+    cin >> n;
+    cout << "Enter a and r:";
+    cin >> a >> r;
+    for (int i = 0; i < n; i++)
+    {
+
+
+   cout << "Enter the x and y coordinates of the point: ";
+    cin >> x >> y;
+
+  
+    // Выводим результат
+    if ((x*x)+(y*y)<=r*r && y>x && x>0) {
+        cout << "The dot fell into one of the circles." << endl;
+        it++;
+    }
+    else if ((x * x) + (y * y) >= r * r && y<x && x<0 && y>-a) {
+        cout << "The dot fell into one of the circles." << endl;
+        it++;
+    }
+    else {
+        cout << "The dot did not fall into any of the circles." << endl;
+    }
+    }
+    cout << " - " << it << endl;
+
+}
+void task_2()
+{
+    int n;
+    cout << "Enter n: ";
+    cin >> n;
+    double result = 1.0;
+    double x;
+    cout << "Enter x: ";
+    cin >> x;
+    if (0 < x || x < 10)
+    {
+        for (int i = 0; i <= n; i++) {
+            result *= pow(sin(x), i) + 1.0 / sqrt(x);
+        }
+        cout << "Result: " << result << endl;
+    }
+    else
+    {
+        cout << "Error" << endl;
+    }
+}
+
+void task_3() {
+    double x;
+    cout << "Enter x: ";
+    cin >> x;
+
+    double e = 1e-5; // Small value for convergence
+    double g = 1e5;  // Large value for divergence
+
+    double sum = 0.0;
+    int n = 1;
+    double u = 1.0;
+
+    while (abs(u) >= e && abs(u) <= g) {
+        u = pos(n) / factorial(n);
+        sum += u;
+        cout << setprecision(10) << u << endl;
+        n++;
+    }
+
+    if (abs(u) < e) {
+        cout << "The sum converges to the given accuracy." << endl;
+    }
+    else if (abs(u) > g) {
+        cout << "The series diverges." << endl;
+    }
+}
+
+int factorial(int n) {
+    int factorial = 1, f = 4 * n + 3;
+    for (int i = 1; i <= f; i++) {
+        factorial *= i;
+    }
+    return factorial;
+}
+
+double pos(int n) {
+    double pos = 1.0;
+    for (int i = 1; i <= n; i++) {
+        pos *= 7 + 3 * i;
+    }
+    return pos;
+}
